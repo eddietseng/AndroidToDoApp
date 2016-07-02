@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class TodoItemDatabaseHelper extends SQLiteOpenHelper{
     // Database Info
     private static final String DATABASE_NAME = "todosDatabase";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Table Names
     private static final String TABLE_TODOS = "todos";
@@ -28,6 +28,7 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper{
     private static final String TODO_DES = "description";
     private static final String TODO_DATE = "date";
     private static final String TODO_PRIORITY = "priority";
+    private static final String TODO_STATUS = "status";
 
     private static TodoItemDatabaseHelper sInstance;
 
@@ -64,7 +65,8 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper{
                     TODO_ID + " INTEGER PRIMARY KEY," + // Define a primary key
                     TODO_DES + " TEXT," + // Define a foreign key
                     TODO_DATE + " TEXT," +
-                    TODO_PRIORITY + " INTEGER" +
+                    TODO_PRIORITY + " INTEGER," +
+                    TODO_STATUS + " INTEGER" +
                 ")";
 
         db.execSQL(CREATE_TODOS_TABLE);
@@ -92,6 +94,8 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper{
             values.put(TODO_DES, item.getDescription());
             values.put(TODO_DATE, item.getDate());
             values.put(TODO_PRIORITY, item.getPriority());
+            int status = item.getStatus()? 1:0;
+            values.put(TODO_STATUS, status);
 
             // Notice how we haven't specified the primary key. SQLite auto increments the primary key column.
             db.insertOrThrow(TABLE_TODOS, null, values);
@@ -119,6 +123,7 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper{
                     item.setDescription(cursor.getString(cursor.getColumnIndex(TODO_DES)));
                     item.setDate(cursor.getString(cursor.getColumnIndex(TODO_DATE)));
                     item.setPriority(cursor.getInt(cursor.getColumnIndex(TODO_PRIORITY)));
+                    item.setStatus(cursor.getInt(cursor.getColumnIndex(TODO_STATUS)) > 0);
 
                     items.add(item);
                 } while (cursor.moveToNext());
@@ -165,6 +170,8 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper{
             values.put(TODO_DES, item.getDescription());
             values.put(TODO_DATE, item.getDate());
             values.put(TODO_PRIORITY, item.getPriority());
+            int status = item.getStatus()? 1:0;
+            values.put(TODO_STATUS, status);
 
             db.update(TABLE_TODOS, values, TODO_ID +"="+(position+1), null);
 

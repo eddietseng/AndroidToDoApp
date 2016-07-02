@@ -2,9 +2,9 @@ package com.eddietseng.todo;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +16,6 @@ import com.eddietseng.todo.helper.RecyclerViewClickListener;
 import com.eddietseng.todo.sqlite.TodoItemDatabaseHelper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
@@ -45,6 +44,17 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.description.setText(mValues.get(position).getDescription());
+        holder.date.setText(mValues.get(position).getDate());
+
+        if(mValues.get(position).getStatus()) {
+            holder.description.setPaintFlags(holder.description.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.date.setPaintFlags(holder.date.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        else {
+            holder.description.setPaintFlags(holder.description.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            holder.date.setPaintFlags(holder.date.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+        }
+
         switch(mValues.get(position).getPriority()){
             case 0:
                 holder.priority.setText("HIGH");
@@ -64,7 +74,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             default:
                 break;
         }
-        holder.date.setText(mValues.get(position).getDate());
     }
 
     @Override
@@ -74,6 +83,16 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
         TodoItemDatabaseHelper databaseHelper = TodoItemDatabaseHelper.getInstance(context);
         databaseHelper.updateAllTodoItems(mValues);
+    }
+
+    @Override
+    public void onItemMarkDone(int position) {
+        TodoItem item = mValues.get(position);
+
+        if( item.getStatus() )
+            item.setStatus(false);
+        else
+            item.setStatus(true);
     }
 
     @Override

@@ -11,12 +11,14 @@ public class TodoItem implements Serializable {
     private String description;
     private int priority;
     private String date;
+    private boolean status;
 
     public TodoItem() {
         this.priority = 0;
         Calendar calendar = Calendar.getInstance();
         DateFormat format = DateFormat.getDateTimeInstance();
         this.date = format.format(calendar.getTime());
+        this.status = false;
     }
 
     public TodoItem(String description, int priority, String date) {
@@ -49,12 +51,17 @@ public class TodoItem implements Serializable {
         this.date = date;
     }
 
+    public boolean getStatus() { return status; }
+
+    public void setStatus(boolean status) { this.status = status; }
+
     @Override
     public String toString() {
         return "TodoItem{" +
                 "description='" + description + '\'' +
                 ", priority='" + priority + '\'' +
                 ", date='" + date + '\'' +
+                ", status='" + (status ? "done":"todo") + '\'' +
                 '}';
     }
 }

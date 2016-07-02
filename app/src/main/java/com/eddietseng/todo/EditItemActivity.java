@@ -13,9 +13,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.ToggleButton;
 
 import java.text.DateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -23,6 +23,7 @@ public class EditItemActivity extends AppCompatActivity {
     EditText descriptionET;
     EditText dateET;
     RadioGroup priorityGroup;
+    ToggleButton statusButton;
     TodoItem item;
 
     @Override
@@ -61,6 +62,9 @@ public class EditItemActivity extends AppCompatActivity {
                 Log.i( "EditItemActivity" , "can't handle priority: " + item.getPriority() );
                 break;
         }
+
+        statusButton = (ToggleButton) findViewById(R.id.toggleDoneButton);
+        statusButton.setChecked(item.getStatus());
 
     }
 
@@ -128,6 +132,8 @@ public class EditItemActivity extends AppCompatActivity {
                             selectedRadioButton.getText().toString());
             }
         }
+
+        item.setStatus(statusButton.isChecked());
 
         Intent data = new Intent();
         data.putExtra("item", item);

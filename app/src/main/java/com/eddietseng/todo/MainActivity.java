@@ -16,7 +16,6 @@ import com.eddietseng.todo.helper.SimpleItemTouchHelperCallback;
 import com.eddietseng.todo.sqlite.TodoItemDatabaseHelper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewClickListener{
     // Adapter allows us to display the contents of an ArrayList within a ListView
@@ -51,9 +50,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
 
     @Override
     public void recyclerViewListClicked(View v, int position){
-        Log.i( "recyclerViewListClicked" , "view: " + v.toString() );
-        Log.i( "Click listener" , "selected  position: " + position );
-        Log.i( "item list" , "list: " + Arrays.toString(items.toArray()) );
+//        Log.i( "recyclerViewListClicked" , "view: " + v.toString() );
+//        Log.i( "Click listener" , "selected  position: " + position );
+//        Log.i( "item list" , "list: " + Arrays.toString(items.toArray()) );
 
         editPosition = position;
 
@@ -74,11 +73,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
                 orgItem.setDescription(item.getDescription());
                 orgItem.setDate(item.getDate());
                 orgItem.setPriority(item.getPriority());
+                orgItem.setStatus(item.getStatus());
                 adapter.notifyDataSetChanged();
 
-                Log.i( "after update" , "edit position" + editPosition );
+                Log.i( "after update" , "edit position " + editPosition );
                 databaseHelper.updateTodoItem(editPosition, orgItem);
-                Log.i( "after update" , "" );
             }
         }
     }
