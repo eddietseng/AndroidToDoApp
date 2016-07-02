@@ -15,10 +15,12 @@ Completed user stories:
  * [x] Suggested: Improved style of the todo items in the list using a custom adapter
  * [x] Suggested: Added support for completion due dates for todo items (and display within listview item)
  * [x] Optional: Add support for selecting the priority of each todo item (and display in listview item)
+ * [x] Optional: Tweak the style improving the UI / UX, play with colors, images or backgrounds
  
-Notes:
+Additional functions:
 * Added gesture support to allow sweep to delete.
 * Added drag and drop to change the item position.
+* Added status of the todo item. If the item is done, the todo text and date will be crossed out.
 
 Walkthrough of all user stories:
 
