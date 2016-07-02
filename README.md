@@ -18,12 +18,14 @@ Completed user stories:
  * [x] Optional: Tweak the style improving the UI / UX, play with colors, images or backgrounds
  
 Additional functions:
+* Added Back menu button in Edit activity.
+* Added datetime picker with dialog for user to set due date.
 * Added gesture support to allow sweep to delete.
 * Added drag and drop to change the item position.
 * Added status of the todo item. If the item is done, the todo text and date will be crossed out.
 
 Walkthrough of all user stories:
 
-![Video Walkthrough](TodoAppDemo_KitKat.gif)
+![Video Walkthrough](TodoAppDemo_KitKat_2.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
